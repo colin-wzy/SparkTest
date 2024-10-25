@@ -17,6 +17,8 @@ public class SparkConfig {
                 .appName("SparkTest")
                 .master("local[*]")
 //                .master("spark://192.168.248.101:7077")
+                .config("spark.hadoop.ipc.client.connect.timeout", "3000") // 设置连接超时时间（单位：毫秒）
+                .config("spark.hadoop.ipc.client.connect.max.retries.on.timeouts", "3") // 设置连接超时最大重试次数
                 .getOrCreate();
         return sparkSession;
     }
