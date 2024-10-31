@@ -9,6 +9,7 @@ logging:
   level:
     root: INFO
     org.apache.spark: WARN
+    org.sparkproject.jetty.server.handler.ContextHandler: WARN
 
 # springdoc-openapi项目配置
 springdoc:

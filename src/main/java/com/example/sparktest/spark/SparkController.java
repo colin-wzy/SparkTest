@@ -50,19 +50,22 @@ public class SparkController {
 
         JavaRDD<Integer> rdd = sparkSession.createDataset(data, Encoders.INT()).javaRDD();
 
-        // 3. 执行RDD操作
         // 示例 1: 过滤出偶数
         JavaRDD<Integer> evenNumbersRDD = rdd.filter(number -> number % 2 == 0);
-        System.out.println("Even numbers: " + evenNumbersRDD.collect());
 
         // 示例 2: 对所有元素进行求和
         int sum = rdd.reduce(Integer::sum);
-        System.out.println("Sum of all numbers: " + sum);
 
         // 示例 3: 将所有元素映射为平方
         JavaRDD<Integer> squaredRDD = rdd.map(number -> number * number);
-        System.out.println("Squared numbers: " + squaredRDD.collect());
-        return null;
+
+        // 示例 4: 按奇偶数分组
+        JavaPairRDD<Boolean, Iterable<Integer>> group = rdd.groupBy(number -> number % 2 == 0, 2);
+
+        return "Even numbers: " + evenNumbersRDD.collect() + "\n" +
+                "Sum of all numbers: " + sum + "\n" +
+                "Squared numbers: " + squaredRDD.collect() + "\n" +
+                "GroupBy of all numbers: " + group.collect();
     }
 
     @GetMapping("/helloSpark3")
