@@ -4,6 +4,11 @@ server:
 spring:
   application:
     name: SparkTest
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: 28vnfmSC
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
 logging:
   level:
@@ -27,6 +32,10 @@ springdoc:
       paths-to-match: '/**'  # 匹配所有路径
       display-name: 'spark下全部接口'
       packages-to-scan: com.example.sparktest.spark # 扫描的包，用于自动发现API
+    - group: 'mysql'   # API分组名称
+      paths-to-match: '/**'  # 匹配所有路径
+      display-name: 'mysql下全部接口'
+      packages-to-scan: com.example.sparktest.mysql # 扫描的包，用于自动发现API
 
 # knife4j的增强配置，不需要增强可以不配
 knife4j:

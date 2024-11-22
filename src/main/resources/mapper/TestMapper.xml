@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.sparktest.mysql.mapper.TestMapper">
+
+    <insert id="batchInsert">
+        INSERT IGNORE INTO test1
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <foreach collection="valueList[0].keySet()" item="column" separator=",">
+                ${column}
+            </foreach>
+        </trim>
+        VALUES
+        <foreach collection="valueList" item="map" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <foreach collection="map" item="value" separator=",">
+                    #{value}
+                </foreach>
+            </trim>
+        </foreach>
+        ON DUPLICATE KEY UPDATE id = id
+    </insert>
+</mapper>
