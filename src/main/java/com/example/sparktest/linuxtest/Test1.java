@@ -9,7 +9,11 @@ import java.util.List;
 
 public class Test1 {
     public static void main(String[] args) {
-        SparkSession spark = SparkSession.builder().appName("LinuxSparkTest1").getOrCreate();
+        SparkSession spark = SparkSession.builder()
+                .master("local[*]")
+                .appName("LinuxSparkTest123")
+                .config("spark.driver.host", "127.0.0.1")
+                .getOrCreate();
 
         List<Integer> data = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
         JavaRDD<Integer> rdd = spark.createDataset(data, Encoders.INT()).javaRDD();

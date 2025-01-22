@@ -63,6 +63,18 @@
 
     <build>
         <plugins>
+<!-- 如果该jar包放在linux环境下的spark中使用spark-submit运行，则不能加该配置
+1. 是否生成可执行的 JAR 包
+加上 spring-boot-maven-plugin：打包后的 JAR 是可执行的 JAR（executable JAR），即包含了内嵌的 Tomcat、Jetty 等 Servlet 容器，可以通过 java -jar 命令直接运行。例如：java -jar myapp.jar。这种方式可以让应用在任何支持 Java 的环境中运行，无需单独安装应用服务器。
+不加 spring-boot-maven-plugin：生成的 JAR 文件是一个普通的 JAR，不可执行。它没有包含内嵌的容器，无法直接通过 java -jar 运行，需要依赖外部的 Servlet 容器（例如 Tomcat）来部署运行。
+2. JAR 包的结构不同
+加上 spring-boot-maven-plugin：生成的可执行 JAR 包会包含所有的依赖项，并按照 Spring Boot 的特殊结构打包，通常会包含一个 BOOT-INF 文件夹，用于存放应用的 classes 和依赖库。
+不加 spring-boot-maven-plugin：生成的 JAR 包结构是标准的 Java JAR 包结构，仅包含应用的 class 文件和资源文件，不包含依赖项。
+3. 自动化任务的支持
+spring-boot-maven-plugin 提供了很多便捷的任务，比如 repackage 任务，用于重新打包 JAR，run 任务用于启动应用等。如果不加这个插件，这些任务就不会可用，必须自己额外配置。
+4. 启动速度与便捷性
+加上 spring-boot-maven-plugin：应用的启动速度通常较快，因为所有依赖都打包在一个文件中，直接在命令行启动较方便。
+不加 spring-boot-maven-plugin：需要依赖外部的应用服务器，可能需要手动配置 WAR 包部署，启动略显复杂。 -->
 <!--            <plugin>-->
 <!--                <groupId>org.springframework.boot</groupId>-->
 <!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
